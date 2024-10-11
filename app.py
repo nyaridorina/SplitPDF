@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = os.path.expanduser('~/Downloads')
+OUTPUT_FOLDER = 'output'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -31,7 +31,7 @@ def upload_file():
         filepath = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filepath)
         split_pdf(filepath)
-        return 'PDF split successfully. Check the Downloads folder.'
+        return 'PDF split successfully. Check the output folder.'
 
 def split_pdf(filepath):
     pdf = PdfReader(filepath)
