@@ -8,7 +8,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
-    return render_template_string('''
+    return '''
     <!doctype html>
     <title>PDF Divider</title>
     <h1>Upload a PDF to divide it into individual pages</h1>
@@ -16,7 +16,7 @@ def index():
       <input type=file name=file>
       <input type=submit value=Upload>
     </form>
-    ''')
+    '''
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -29,6 +29,7 @@ def upload_file():
         filepath = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filepath)
         split_pdf(filepath)
+        return f'PDF split successfully. The individual pages are saved in the folder: {os.path.dirname(filepath)}'
         return f'PDF split successfully. The individual pages are saved in the same folder: {UPLOAD_FOLDER}'
 
 def split_pdf(filepath):
@@ -44,4 +45,4 @@ def split_pdf(filepath):
             writer.write(output_pdf)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
