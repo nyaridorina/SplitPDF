@@ -4,9 +4,7 @@ import os
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = os.path.expanduser('~/Downloads/output')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
@@ -31,16 +29,17 @@ def upload_file():
         filepath = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filepath)
         split_pdf(filepath)
-        return 'PDF split successfully. Check the Downloads/output folder.'
+        return f'PDF split successfully. The individual pages are saved in the same folder: {UPLOAD_FOLDER}'
 
 def split_pdf(filepath):
     pdf = PdfReader(filepath)
     base_filename = os.path.splitext(os.path.basename(filepath))[0]
+    output_folder = os.path.dirname(filepath)  # Use the same directory as the uploaded file
     
     for page_number in range(len(pdf.pages)):
         writer = PdfWriter()
         writer.add_page(pdf.pages[page_number])
-        output_filename = os.path.join(OUTPUT_FOLDER, f"{base_filename}_p{page_number + 1}.pdf")
+        output_filename = os.path.join(output_folder, f"{base_filename}_p{page_number + 1}.pdf")
         with open(output_filename, 'wb') as output_pdf:
             writer.write(output_pdf)
 
