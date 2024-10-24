@@ -2,7 +2,10 @@ import os
 from flask import Flask
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Check if the folder exists before creating it
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 def create_app():
     app = Flask(__name__)
