@@ -19,4 +19,4 @@ def upload_file():
         filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filepath)
         split_pdf(filepath)
-        return f'PDF split successfully. The individual pages are saved in the folder: {os.path.dirname(filepath)}'
+        return f'PDF split successfully. The individual pages are saved in the folder: {current_app.config["UPLOAD_FOLDER"]}'
