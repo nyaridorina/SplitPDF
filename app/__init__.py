@@ -1,15 +1,11 @@
 import os
 from flask import Flask
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
-
-# Check if the folder exists before creating it
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+DOWNLOADS_FOLDER = os.path.join(os.path.expanduser('~'), 'Downloads')
 
 def create_app():
     app = Flask(__name__)
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['UPLOAD_FOLDER'] = DOWNLOADS_FOLDER
 
     from .routes import main
     app.register_blueprint(main)
