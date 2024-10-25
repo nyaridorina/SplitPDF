@@ -4,7 +4,7 @@ import os
 def split_pdf(filepath):
     pdf = PdfReader(filepath)
     base_filename = os.path.splitext(os.path.basename(filepath))[0]
-    output_folder = os.path.dirname(filepath)  # Use the same directory as the uploaded file
+    output_folder = os.path.dirname(filepath)  # Use the Downloads directory for output
     
     for page_number in range(len(pdf.pages)):
         writer = PdfWriter()
