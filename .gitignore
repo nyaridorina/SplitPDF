@@ -2,26 +2,16 @@
 __pycache__/
 *.py[cod]
 
-# Environment variables
-.env
-
-# Flask session and instance folders
+# Flask instance folder
 instance/
 
-# Uploads folder
+# Uploads and downloads
 uploads/
-
-# Logs and database
-*.log
-*.sqlite3
-
-# OS-specific files
-.DS_Store
-Thumbs.db
+Downloads/
 
 # Virtual environment
 venv/
 
-# IDE settings
-.vscode/
-.idea/
+# System-specific files
+.DS_Store
+Thumbs.db
